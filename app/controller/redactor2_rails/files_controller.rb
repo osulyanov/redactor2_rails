@@ -1,5 +1,5 @@
 class Redactor2Rails::FilesController < ApplicationController
-  before_filter :redactor2_authenticate_user!
+  before_action :redactor2_authenticate_user!
 
   def create
     @file = Redactor2Rails.file_model.new
