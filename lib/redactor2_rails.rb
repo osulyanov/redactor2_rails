@@ -17,21 +17,21 @@ module Redactor2Rails
   require 'redactor2_rails/orm/mongoid'
   require 'redactor2_rails/engine'
 
-  mattr_accessor :images_file_types, :files_file_types
+  mattr_accessor :images_file_types, :files_file_types, :devise_user, :image_model, :file_model
   @@images_file_types = ['jpg', 'jpeg', 'png', 'gif', 'tiff']
   @@files_file_types = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'rtf', 'txt']
 
 
   def self.image_model
-    Redactor2Rails::Image
+    @image_model || Redactor2Rails::Image
   end
 
   def self.file_model
-    Redactor2Rails::File
+    @file_model || Redactor2Rails::File
   end
 
   def self.devise_user
-    :user
+    @devise_user || :user
   end
 
   def self.devise_user_key
