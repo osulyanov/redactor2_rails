@@ -7,8 +7,8 @@ class Redactor2Rails::FilesController < ApplicationController
     file = params[:file]
     @file.data = Redactor2Rails::Http.normalize_param(file, request)
     if @file.has_attribute?(:"#{Redactor2Rails.devise_user_key}")
-      @file.send("#{Redactor2Rails.devise_user}=", redactor_current_user)
-      @file.assetable = redactor_current_user
+      @file.send("#{Redactor2Rails.devise_user}=", redactor2_current_user)
+      @file.assetable = redactor2_current_user
     end
 
     if @file.save
