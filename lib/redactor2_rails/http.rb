@@ -1,4 +1,4 @@
-# encoding: utf-8
+
 require 'digest/sha1'
 require 'mime/types'
 
@@ -40,9 +40,8 @@ module Redactor2Rails
     # Usage (paperclip example)
     # @asset.data = QqFile.new(params[:qqfile], request)
     class QqFile < ::Tempfile
-
-      def initialize(filename, request, tmpdir = Dir::tmpdir)
-        @original_filename  = filename
+      def initialize(filename, request, tmpdir = Dir.tmpdir)
+        @original_filename = filename
         @request = request
 
         super Digest::SHA1.hexdigest(filename), tmpdir
@@ -50,14 +49,12 @@ module Redactor2Rails
       end
 
       def fetch
-        self.write(body)
-        self.rewind
+        write(body)
+        rewind
         self
       end
 
-      def original_filename
-        @original_filename
-      end
+      attr_reader :original_filename
 
       def content_type
         types = MIME::Types.type_for(original_filename)
@@ -66,7 +63,7 @@ module Redactor2Rails
 
       def body
         if @request.raw_post.respond_to?(:force_encoding)
-          @request.raw_post.force_encoding("UTF-8")
+          @request.raw_post.force_encoding('UTF-8')
         else
           @request.raw_post
         end
@@ -77,7 +74,7 @@ module Redactor2Rails
     # file upload hash with UploadedFile objects
     def self.normalize_param(*args)
       value = args.first
-      if Hash === value && value.has_key?(:tempfile)
+      if Hash === value && value.key?(:tempfile)
         UploadedFile.new(value)
       elsif value.is_a?(String)
         QqFile.new(*args)
