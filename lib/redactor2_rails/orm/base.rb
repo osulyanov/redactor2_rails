@@ -20,13 +20,13 @@ module Redactor2Rails
           end
 
           def as_json_methods
-            [:image, :thumb]
+            %i[image thumb]
           end
 
-          def as_json(options = nil)
+          def as_json(_options = nil)
             options = {
-              :methods => as_json_methods,
-              :root => false
+              methods: as_json_methods,
+              root: false
             }
 
             super options

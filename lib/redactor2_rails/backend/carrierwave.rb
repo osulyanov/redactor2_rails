@@ -38,11 +38,12 @@ module Redactor2Rails
         end
 
         def extract_content_type
-          if file.content_type == 'application/octet-stream' || file.content_type.blank?
-            content_type = MIME::Types.type_for(original_filename).first
-          else
-            content_type = file.content_type
-          end
+          content_type = if file.content_type == 'application/octet-stream' ||
+                            file.content_type.blank?
+                           MIME::Types.type_for(original_filename).first
+                         else
+                           file.content_type
+                         end
 
           model.data_content_type = content_type.to_s
         end
@@ -54,10 +55,10 @@ module Redactor2Rails
         def read_dimensions
           if model.image? && model.has_dimensions?
             magick = ::MiniMagick::Image.new(current_path)
-            model.width, model.height = magick[:width], magick[:height]
+            model.width = magick[:width]
+            model.height = magick[:height]
           end
         end
-
       end
     end
   end

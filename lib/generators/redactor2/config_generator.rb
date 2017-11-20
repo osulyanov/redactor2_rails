@@ -9,7 +9,6 @@ module Redactor2
         @source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       end
 
-
       def create_config
         template 'config.js', File.join('app/assets/javascripts/redactor2_rails', 'config.js')
       end

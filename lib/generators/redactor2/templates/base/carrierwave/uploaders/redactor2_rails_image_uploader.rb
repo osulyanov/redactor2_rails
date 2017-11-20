@@ -1,4 +1,4 @@
-# encoding: utf-8
+
 class Redactor2RailsImageUploader < CarrierWave::Uploader::Base
   include Redactor2Rails::Backend::CarrierWave
 
@@ -33,11 +33,11 @@ class Redactor2RailsImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [100, 100]
+    process resize_to_fill: [100, 100]
   end
 
   version :content do
-    process :resize_to_limit => [800, 800]
+    process resize_to_limit: [800, 800]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

@@ -1,4 +1,4 @@
-# encoding: utf-8
+
 class Redactor2RailsFileUploader < CarrierWave::Uploader::Base
   include Redactor2Rails::Backend::CarrierWave
 
